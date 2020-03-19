@@ -25,11 +25,11 @@ class FA:
 class DFA:
     def __init__(self, automat):
         self.automat = automat
-        self.states: list = self.get_states()
+        self.states: list = self.__get_states()
         self.alphabet: dict = self.automat["alphabet"]
         self.__diction: dict = self.dictionary()
 
-    def get_states(self) -> list:
+    def __get_states(self) -> list:
         return [FA(i["state"]
                    , i["final"]
                    , i["start"]
@@ -45,15 +45,19 @@ class DFA:
 
     def __sets_generator(self, set_of_states: tuple) -> list:
         no, yes = self.__divide_sets(set_of_states)
+        if len(set_of_states) == 2 and len(no) == 2:
+            return [{no.pop()}, no]
         if len(yes) == 0:
             return [no]
         if len(no) == 0:
             return [yes]
-        if len(set_of_states) == 2 and len(no) == 2:
-            return [{no.pop()}, no]
         return [yes, no]
 
     def minimize(self) -> list:
+        """
+        initialize sets with final sets and the others
+        :return:
+        """
         return self.__minimize(self.__initial_sets())
 
     def __minimize(self, con) -> list:
