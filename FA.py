@@ -8,4 +8,5 @@ if __name__ == "__main__":
 
         con = DFA(data)
         print(con)
+        print(con.dictionary())
         print(con.minimize())
