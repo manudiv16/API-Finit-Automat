@@ -1,0 +1,81 @@
+{
+    "deterministic":false,
+    "alphabet": [
+      "a",
+      "b"
+    ],
+    "states": [
+      {
+        "state": 0,
+        "final": false,
+        "start": true,
+        "morphs": {
+          "a": 1,
+          "b": 2
+        }
+      },
+      {
+        "state": 1,
+        "final": false,
+        "start": false,
+        "morphs": {
+          "a": 3,
+          "b": 5
+        }
+      },
+      {
+        "state": 2,
+        "final": false,
+        "start": false,
+        "morphs": {
+          "a": 3,
+          "b": 2
+        }
+      },
+      {
+        "state": 3,
+        "final": false,
+        "start": false,
+        "morphs": {
+          "a": 3,
+          "b": 4
+        }
+      },
+      {
+        "state": 4,
+        "final": true,
+        "start": false,
+        "morphs": {
+          "a": 3,
+          "b": 2
+        }
+      },
+      {
+        "state": 5,
+        "final": true,
+        "start": false,
+        "morphs": {
+          "a": 6,
+          "b": 7
+        }
+      },
+      {
+        "state": 6,
+        "final": true,
+        "start": false,
+        "morphs": {
+          "a": 6,
+          "b": 5
+        }
+      },
+      {
+        "state": 7,
+        "final": true,
+        "start": false,
+        "morphs": {
+          "a": 6,
+          "b": 7
+        }
+      }
+    ]
+  }
