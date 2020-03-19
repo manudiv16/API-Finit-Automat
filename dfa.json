@@ -76,6 +76,15 @@
           "a": 6,
           "b": 7
         }
+      },
+        {
+        "state": 8,
+        "final": true,
+        "start": false,
+        "morphs": {
+          "a": 6,
+          "b": 7
+        }
       }
     ]
   }
