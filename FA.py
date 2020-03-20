@@ -1,13 +1,12 @@
 import json
 
-from DFA import DFA
+from dfa import Dfa
 
 if __name__ == "__main__":
     with open("dfa.json", "r") as f:
         data = json.load(f)
 
-        con = DFA(data)
+        con = Dfa(data)
         print(con)
-        print(con.dictionary())
         print(con.minimize())
         print((con.read("")))
