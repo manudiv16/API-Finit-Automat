@@ -61,13 +61,13 @@ class DFA:
                 for h in self.states
                 }
 
-    def read(self, word):
+    def read(self, word: str) -> bool:
         for i in self.__sets_start():
-            if not self.readeable(word, i.state):
+            if not self.__read(word, i.state):
                 return False
         return True
 
-    def readeable(self, word, state):
+    def __read(self, word, state):
         if len(word) != 0:
             char = word[0]
             if char not in self.alphabet:
@@ -78,9 +78,8 @@ class DFA:
             return self.states[state].is_final()
 
     def __initial_sets(self) -> typing.Tuple[set, set]:
-        conant_de_tots_eds_estate = set(self.states)
         con1 = set(x for x in self.states if x.is_final())
-        con2 = con1 ^ conant_de_tots_eds_estate
+        con2 = con1 ^ set(self.states)
         con1 = {x.state for x in con1}
         con2 = {x.state for x in con2}
         return con1, con2
