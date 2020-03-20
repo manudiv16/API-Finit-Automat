@@ -12,7 +12,7 @@ class FA:
     def is_final(self):
         return self.__final
 
-    def is_star(self):
+    def is_start(self):
         return self.__start
 
     def state_in_morph(self, morph):
@@ -35,6 +35,48 @@ class DFA:
                    , i["start"]
                    , i["morphs"]) for i in self.automat["states"]]
 
+    def minimize(self) -> list:
+        """
+        initialize sets with final sets and the others
+        :return list of sets minimized:
+        """
+        return self.__minimize(self.__initial_sets())
+
+    def __minimize(self, con) -> list:
+        set1 = []
+        for i in con:
+            a = self.__sets_generator(i)
+            set1 = set1 + a  # union of sets in set1
+        if con != set1:  # verify the changes of sets, when the set is equal stop recursive call
+            return self.__minimize(set1)
+        return set1
+
+    def dictionary(self) -> dict:
+        """
+        format a dictionary
+        :return dictionary of states :
+        """
+        return {h.state: {j: h.morphs[j]
+                          for j in self.alphabet}
+                for h in self.states
+                }
+
+    def read(self, word):
+        for i in self.__sets_start():
+            if not self.readeable(word, i.state):
+                return False
+        return True
+
+    def readeable(self, word, state):
+        if len(word) != 0:
+            char = word[0]
+            if char not in self.alphabet:
+                return Exception
+            next_state = self.__diction[state][char]
+            return self.readeable(word[1:], next_state)
+        else:
+            return self.states[state].is_final()
+
     def __initial_sets(self) -> typing.Tuple[set, set]:
         conant_de_tots_eds_estate = set(self.states)
         con1 = set(x for x in self.states if x.is_final())
@@ -43,7 +85,10 @@ class DFA:
         con2 = {x.state for x in con2}
         return con1, con2
 
-    def __sets_generator(self, set_of_states: tuple) -> list:
+    def __sets_start(self) -> set:
+        return (x for x in self.states if x.is_start())
+
+    def __sets_generator(self, set_of_states: tuple) -> typing.List[set]:
         no, yes = self.__divide_sets(set_of_states)
         if len(set_of_states) == 2 and len(no) == 2:
             return [{no.pop()}, no]
@@ -52,34 +97,6 @@ class DFA:
         if len(no) == 0:
             return [yes]
         return [yes, no]
-
-    def minimize(self) -> list:
-        """
-        initialize sets with final sets and the others
-        :return:
-        """
-        return self.__minimize(self.__initial_sets())
-
-    def __minimize(self, con) -> list:
-        set1 = []
-        for i in con:
-            a: list = self.__sets_generator(i)
-            set1 = set1 + a
-        if con != set1:
-            return self.__minimize(set1)
-        return set1
-
-    def dictionary(self) -> dict:
-        return {h.state: {j: h.morphs[j]
-                          for j in self.alphabet}
-                for h in self.states
-                }
-
-    def read(self, palabra):
-        start_states = [x for x in self.states if x.is_start()]
-
-    def readles(self, simbolo):
-        pass
 
     def __divide_sets(self, set_of_states: tuple) -> typing.Tuple[set, set]:
         yes, no = set(), set()

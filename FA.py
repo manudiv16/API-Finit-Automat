@@ -10,3 +10,4 @@ if __name__ == "__main__":
         print(con)
         print(con.dictionary())
         print(con.minimize())
+        print((con.read("")))
