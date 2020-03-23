@@ -1,6 +1,6 @@
 """Este es el docstring de mi_paquete"""
 
-from typing import Tuple, Generator, Any, List
+from typing import Tuple, Generator, Any, List, Union, Dict
 
 
 class Fa:
@@ -45,12 +45,13 @@ class Dfa:
         self.alphabet: dict = self.automaton["alphabet"]
         self.__diction: dict = self.dictionary()
 
-    def minimize(self) -> list:
+    def minimize(self) -> Dict[Any, Union[dict, Any]]:
         """
         initialize sets with final sets and the others
         :return list of sets minimized:
         """
-        return self.__minimize(self.__initial_sets())
+        automaton_minimized = self.__minimize(self.__initial_sets())
+        return self.__put_the_morphs(automaton_minimized)
 
     def dictionary(self) -> dict:
         """
@@ -115,10 +116,10 @@ class Dfa:
         return out, in_
 
     def __get_states(self) -> list:
-        return [Fa(i["state"]
-                   , i["final"]
-                   , i["start"]
-                   , i["morphs"]) for i in self.automaton["states"]]
+        return [Fa(i["state"],
+                   i["final"],
+                   i["start"],
+                   i["morphs"]) for i in self.automaton["states"]]
 
     def __minimize(self, sets) -> list:
         category = []
@@ -128,6 +129,16 @@ class Dfa:
         if sets != category:  # verify the changes of sets,
             return self.__minimize(category)  # when the set is equal stop recursive call
         return category
+
+    def __put_the_morphs(self, lists):
+        minimized_dict = {}
+        for _set in lists:
+            if len(_set) == 1:
+                elem = _set.pop()
+                minimized_dict[elem] = self.states[elem].morphs
+            else:
+                minimized_dict[min(_set)] = {x: min(_set) for x in self.alphabet}
+        return minimized_dict
 
     def __repr__(self):
         return self.__diction
