@@ -1,0 +1,45 @@
+{
+    "deterministic":false,
+    "alphabet": [
+      "a",
+      "b"
+    ],
+    "states": [
+      {
+        "state": 0,
+        "final": false,
+        "start": true,
+        "morphs": {
+          "a": [0],
+          "b": [0,1]
+        }
+      },
+      {
+        "state": 1,
+        "final": false,
+        "start": false,
+        "morphs": {
+          "a": [],
+          "b": [2]
+        }
+      },
+      {
+        "state": 2,
+        "final": false,
+        "start": false,
+        "morphs": {
+          "a": [3],
+          "b": [3]
+        }
+      },
+      {
+        "state": 3,
+        "final": true,
+        "start": false,
+        "morphs": {
+          "a": [3],
+          "b": [3]
+        }
+      }
+    ]
+  }

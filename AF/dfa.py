@@ -1,33 +1,7 @@
 """Este es el docstring de mi_paquete"""
 
-from typing import Tuple, Generator, Any, List
-
-
-class Fa:
-    """
-        Create state of finite automaton
-    """
-
-    def __init__(self, state, final, start, morphs):
-        self.state = state
-        self.__final = final
-        self.__start = start
-        self.morphs = morphs
-
-    def is_final(self) -> bool:
-        """
-        :return true when state is a starter state and false when no:
-        """
-        return self.__final
-
-    def is_start(self) -> bool:
-        """
-        :return true when state is a starter state and false when no:
-        """
-        return self.__start
-
-    def __repr__(self):
-        return str(self.state)
+from typing import Tuple, Generator, Any, List, Union
+from AF.State_fa import State_fa
 
 
 class Dfa:
@@ -44,6 +18,8 @@ class Dfa:
         self.states: list = self.__get_states()
         self.alphabet: dict = self.automaton["alphabet"]
         self.__diction: dict = self.dictionary()
+        if not self.automaton["deterministic"]:
+            raise TypeError
 
     def minimize(self) -> list:
         """
@@ -62,23 +38,26 @@ class Dfa:
                 for h in self.states
                 }
 
-    def read(self, word: str) -> bool:
+    def read(self, word: str) -> Union[bool, str]:
         """
         read set of symbols and determine this automaton accept this symbols
         :param word:
         :return boolean value :
         """
         for i in self.__sets_start():
-            if not self.__read(word, i.state):
-                return False
+            try:
+                if not self.__read(word, i.state):
+                    return False
+            except ValueError:
+                return "No Has intraducido una cadena valida"
         return True
 
-    def __read(self, word, state):
+    def __read(self, word: str, state: int) -> bool:
         if len(word) != 0:
-            char = word[0]
+            char: str = word[0]
             if char not in self.alphabet:
-                return Exception
-            next_state = self.__diction[state][char]
+                raise ValueError
+            next_state: int = self.__diction[state][char]
             return self.__read(word[1:], next_state)
         return self.states[state].is_final()
 
@@ -115,10 +94,10 @@ class Dfa:
         return out, in_
 
     def __get_states(self) -> list:
-        return [Fa(i["state"]
-                   , i["final"]
-                   , i["start"]
-                   , i["morphs"]) for i in self.automaton["states"]]
+        return [State_fa(i["state"]
+                         , i["final"]
+                         , i["start"]
+                         , i["morphs"]) for i in self.automaton["states"]]
 
     def __minimize(self, sets) -> list:
         category = []

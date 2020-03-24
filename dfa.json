@@ -1,5 +1,5 @@
 {
-    "deterministic":false,
+    "deterministic":true,
     "alphabet": [
       "a",
       "b"
