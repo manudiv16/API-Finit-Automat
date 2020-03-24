@@ -1,6 +1,6 @@
 """Este es el docstring de mi_paquete"""
 
-from typing import Tuple, Generator, Any, List, Union
+from typing import Tuple, Generator, Any, List, Union, Dict
 from AF.State_fa import State_fa
 
 
@@ -11,8 +11,8 @@ class Dfa:
 
     def __init__(self, automaton):
         """
-        Init a attributes of automaton
-        :param automaton :
+        Initialize a attributes of automaton
+        :param automaton dictionary :
         """
         self.automaton = automaton
         self.states: list = self.__get_states()
@@ -21,12 +21,13 @@ class Dfa:
         if not self.automaton["deterministic"]:
             raise TypeError
 
-    def minimize(self) -> list:
+    def minimize(self) -> Dict[Any, Union[dict, Any]]:
         """
-        initialize sets with final sets and the others
-        :return list of sets minimized:
+        Initialize sets with final states and the others , generate dictionary with the minimized automaton
+        :return dictionary:
         """
-        return self.__minimize(self.__initial_sets())
+        automaton_minimized = self.__minimize(self.__final_or_not())
+        return self.__put_the_morphs(automaton_minimized)
 
     def dictionary(self) -> dict:
         """
@@ -40,6 +41,7 @@ class Dfa:
 
     def read(self, word: str) -> Union[bool, str]:
         """
+        the firsts states determines the start of the automaton
         read set of symbols and determine this automaton accept this symbols
         :param word:
         :return boolean value :
@@ -61,7 +63,7 @@ class Dfa:
             return self.__read(word[1:], next_state)
         return self.states[state].is_final()
 
-    def __initial_sets(self) -> Tuple[set, set]:
+    def __final_or_not(self) -> Tuple[set, set]:
         finals_states = set(x for x in self.states if x.is_final())
         non_final_states = finals_states ^ set(self.states)
         finals_states = {x.state for x in finals_states}
@@ -70,6 +72,15 @@ class Dfa:
 
     def __sets_start(self) -> Generator[Any, Any, None]:
         return (x for x in self.states if x.is_start())
+
+    def __minimize(self, sets) -> list:
+        category = []
+        for i in sets:
+            var = self.__sets_generator(i)
+            category = category + var  # union of sets in set1
+        if sets != category:  # verify the changes of sets,
+            return self.__minimize(category)  # when the set is equal stop recursive call
+        return category
 
     def __sets_generator(self, set_of_states: tuple) -> List[set]:
         out, in_ = self.__divide_sets(set_of_states)
@@ -99,14 +110,15 @@ class Dfa:
                          , i["start"]
                          , i["morphs"]) for i in self.automaton["states"]]
 
-    def __minimize(self, sets) -> list:
-        category = []
-        for i in sets:
-            var = self.__sets_generator(i)
-            category = category + var  # union of sets in set1
-        if sets != category:  # verify the changes of sets,
-            return self.__minimize(category)  # when the set is equal stop recursive call
-        return category
+    def __put_the_morphs(self, lists):
+        minimized_dict = {}
+        for _set in lists:
+            if len(_set) == 1:
+                elem = _set.pop()
+                minimized_dict[elem] = self.states[elem].morphs
+            else:
+                minimized_dict[min(_set)] = {x: min(_set) for x in self.alphabet}
+        return minimized_dict
 
     def __repr__(self):
         return self.__diction
