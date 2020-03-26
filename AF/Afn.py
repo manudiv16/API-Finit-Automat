@@ -19,16 +19,29 @@ class Afn:
     def determine(self):
         a = self.__start_state().state
         table = {tuple([a]): self.__diction[a]}
-        while True:
-            b = self.__next_key(table, self.__diction[a].values())
-            b = self.__morphs_key(b)
-            break
-        return b
+        b = self.__next_key(table, self.__diction[a].values())
+        c = self.__morphs_key(b)
+        table[b] = c
+        i = 0
+        while i < 6:
+            b = self.__next_key(table, table[b].values())
+            c = self.__morphs_key(b)
+            table[b] = c
+            i = i + 1
+
+        return table
 
     def __morphs_key(self, key):
-
-        d = {x: tuple(self.__diction[j][x] for j in key if len(self.__diction[j][x]) > 0) for x in self.alphabet}
-        return d
+        hola = {}
+        for x in self.alphabet:
+            for i in key:
+                a = self.__diction[i][x]
+                if len(a) > 0:
+                    if x in hola:
+                        hola[x] = hola[x] + a if a not in hola[x] else None
+                    else:
+                        hola[x] = a
+        return hola
 
     def __next_key(self, table, args):
         for x in args:
