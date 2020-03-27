@@ -111,13 +111,17 @@ class Dfa:
                          , i["morphs"]) for i in self.automaton["states"]]
 
     def __put_the_morphs(self, lists):
+        def exist(s):
+            for i, j in enumerate(lists):
+                if s in j:
+                    return i
+
         minimized_dict = {}
-        for _set in lists:
-            if len(_set) == 1:
-                elem = _set.pop()
-                minimized_dict[elem] = self.states[elem].morphs
+        for key, elem in enumerate(lists):
+            if len(elem) == 1:
+                minimized_dict[key]= {s: exist(self.states[list(elem)[0]].morphs[s]) for s in self.alphabet}
             else:
-                minimized_dict[min(_set)] = {x: min(_set) for x in self.alphabet}
+                minimized_dict[key] = {x: key for x in self.alphabet}
         return minimized_dict
 
     def __repr__(self):

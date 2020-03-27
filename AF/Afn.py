@@ -17,7 +17,7 @@ class Afn:
         if self.automaton["deterministic"]:
             raise TypeError
 
-    def determine(self) -> dict:
+    def determine(self) -> Dfa:
         a = self.__start_state().state
         table = {tuple([a]): self.__diction[a]}
         next_key = self.__next_key(table, self.__diction[a].values())
@@ -26,7 +26,7 @@ class Afn:
             table[next_key] = self.__morphs_key(next_key)
             next_key = self.__next_key(table, table[next_key].values())
             all_in_table = False if next_key is None else True
-        return self.procesado_de_determinacion(table)
+        return self.to_dfa(table)
 
     @staticmethod
     def __next_key(table, args):
@@ -48,17 +48,29 @@ class Afn:
     def to_dfa(self, dictionary_convert):
         x = {'deterministic': True,
              'alphabet': self.alphabet,
-             'states': []}
+             'states': self.procesado_de_determinacion(dictionary_convert)}
         return Dfa(x)
 
     def procesado_de_determinacion(self, dic):
         print(dic)
         l = list(dic.keys())
-        h = {l.index(key): {s: l.index(dic[key][s])
-                            for s in self.alphabet}
-             for key in l}
+        b = [{'state': l.index(key),
+              'final': self.final_state(key),
+              'start': self.start_state(key),
+              'morphs': {s: l.index(dic[key][s])
+                         for s in self.alphabet}} for key in l]
+        return b
 
-        return
+    def start_state(self, args):
+        if len(args) == 1:
+            return self.states[args[0]].is_start()
+        return False
+
+    def final_state(self, args):
+        for i in args:
+            if self.states[i].is_final():
+                return True
+        return False
 
     def __start_state(self):
         start_state = (x for x in self.states if x.is_start())
