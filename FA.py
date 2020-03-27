@@ -1,7 +1,7 @@
 import json
 
 from AF.af import Af
-from AF.Afn import Afn
+from AF.Nfa import Nfa
 from AF.dfa import Dfa
 
 if __name__ == "__main__":
@@ -14,7 +14,8 @@ if __name__ == "__main__":
         print((con.read("aab")))
     with open("nfa.json", "r") as f:
         data = json.load(f)
-        con = Afn(data)
+        con = Nfa(data)
         print(con.dictionary())
         b = con.determine()
+        print(b)
         print(b.minimize())

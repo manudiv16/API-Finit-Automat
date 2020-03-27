@@ -55,13 +55,13 @@ class Dfa:
         return True
 
     def __read(self, word: str, state: int) -> bool:
-        if len(word) != 0:
-            char: str = word[0]
-            if char not in self.alphabet:
-                raise ValueError
-            next_state: int = self.__diction[state][char]
-            return self.__read(word[1:], next_state)
-        return self.states[state].is_final()
+        if len(word) == 0:
+            return self.states[state].is_final()
+        char: str = word[0]
+        if char not in self.alphabet:
+            raise ValueError
+        next_state: int = self.__diction[state][char]
+        return self.__read(word[1:], next_state)
 
     def __final_or_not(self) -> Tuple[set, set]:
         finals_states = set(x for x in self.states if x.is_final())
@@ -119,7 +119,7 @@ class Dfa:
         minimized_dict = {}
         for key, elem in enumerate(lists):
             if len(elem) == 1:
-                minimized_dict[key]= {s: exist(self.states[list(elem)[0]].morphs[s]) for s in self.alphabet}
+                minimized_dict[key] = {s: exist(self.states[list(elem)[0]].morphs[s]) for s in self.alphabet}
             else:
                 minimized_dict[key] = {x: key for x in self.alphabet}
         return minimized_dict
