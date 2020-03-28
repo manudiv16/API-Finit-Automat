@@ -1,14 +1,21 @@
-
 class State_fa:
     """
         Create state of finite automaton
     """
 
     def __init__(self, state, final, start, morphs):
-        self.state = state
+        self.__state = state
         self.__final = final
         self.__start = start
-        self.morphs = morphs
+        self.__morphs = morphs
+
+    @property
+    def state(self):
+        return self.__state
+
+    @property
+    def morphs(self):
+        return self.__morphs
 
     def is_final(self) -> bool:
         """
@@ -23,4 +30,4 @@ class State_fa:
         return self.__start
 
     def __repr__(self):
-        return str(self.state)
+        return str(self.__state)

@@ -15,7 +15,7 @@ if __name__ == "__main__":
     with open("nfa.json", "r") as f:
         data = json.load(f)
         con = Nfa(data)
-        print(con.dictionary())
+        print(con.dictionary)
         b = con.determine()
         print(b)
         print(b.minimize())
