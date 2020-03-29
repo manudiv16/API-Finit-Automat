@@ -92,7 +92,8 @@ class Nfa:
 
     def _dictionary(self) -> Dict:
         return {h.state: {j: tuple(h.morphs[j])
-                          # uso de una tupla para key : las tuplas al ser inmutables pueden usarse como key
+                          # uso de una tupla para key : las tuplas al
+                          # ser inmutables pueden usarse como key
                           for j in self.__alphabet}
                 for h in self.__states
                 }

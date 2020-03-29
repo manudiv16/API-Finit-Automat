@@ -9,9 +9,11 @@ if __name__ == "__main__":
         data = json.load(f)
 
         con = Dfa(data)
-        print(con)
-        print(con.minimize())
-        print((con.read("aab")))
+        print(con.automaton)
+        c = con.minimize()
+        print(c.automaton)
+        print(c.read("aab"))
+        print(con.read("b"))
     with open("nfa.json", "r") as f:
         data = json.load(f)
         con = Nfa(data)

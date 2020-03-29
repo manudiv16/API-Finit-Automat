@@ -1,4 +1,5 @@
 """Este es el docstring de mi_paquete"""
+from __future__ import annotations
 
 from typing import Tuple, Generator, Any, List, Union, Dict
 from AF.State_fa import State_fa
@@ -12,7 +13,7 @@ class Dfa:
     def __init__(self, automaton):
         """
         Initialize a attributes of automaton
-        :param automaton _dictionary :
+        :param automaton dictionary :
         """
         self.__automaton = automaton
         self.__states: list = self._get_states()
@@ -37,13 +38,13 @@ class Dfa:
     def dictionary(self):
         return self.__dictionary
 
-    def minimize(self) -> Dict[Any, Union[dict, Any]]:
+    def minimize(self):
         """
         Initialize sets with final states and the others , generate _dictionary with the minimized automaton
         :return _dictionary:
         """
         automaton_minimized = self._minimize(self._final_or_not())
-        return self._put_the_morphs(automaton_minimized)
+        return self._to_dfa(self._put_the_morphs(automaton_minimized))
 
     def _dictionary(self) -> dict:
         """
@@ -64,14 +65,13 @@ class Dfa:
         """
         for i in self._sets_start():
             try:
-                if not self._read(word, i.state):
-                    return False
+                return self._read(word, i.state)
             except ValueError:
                 return "No Has intraducido una cadena valida"
-        return True
 
     def _read(self, word: str, state: int) -> bool:
         if len(word) == 0:
+            # FIXME : list non sorted
             return self.__states[state].is_final()
         char: str = word[0]
         if char not in self.__alphabet:
@@ -126,18 +126,27 @@ class Dfa:
                          , i["start"]
                          , i["morphs"]) for i in self.__automaton["states"]]
 
+    def _to_dfa(self, dict_automaton: Dict) -> Dfa:
+        return Dfa({'deterministic': True,
+                    'alphabet': self.__alphabet,
+                    'states': [{'state': key,
+                                'final': self.__states[key].is_final(),
+                                'start': self.__states[key].is_start(),
+                                'morphs': dict_automaton[key]} for key in dict_automaton]
+                    })
+
     def _put_the_morphs(self, lists):
         def exist(s):
             for i, j in enumerate(lists):
                 if s in j:
-                    return i
+                    return min(lists[i])
 
         minimized_dict = {}
-        for key, elem in enumerate(lists):
+        for elem in lists:
             if len(elem) == 1:
-                minimized_dict[key] = {s: exist(self.__states[list(elem)[0]].morphs[s]) for s in self.__alphabet}
+                minimized_dict[min(elem)] = {s: exist(self.__states[list(elem)[0]].morphs[s]) for s in self.__alphabet}
             else:
-                minimized_dict[key] = {x: key for x in self.__alphabet}
+                minimized_dict[min(elem)] = {x: min(elem) for x in self.__alphabet}
         return minimized_dict
 
     def __repr__(self):
@@ -145,3 +154,14 @@ class Dfa:
 
     def __str__(self):
         return str(self.__repr__())
+
+    def _is_start_state(self, args: tuple) -> bool:
+        if len(args) == 1:
+            return self.__states[args[0]].is_start()
+        return False
+
+    def _is_final_state(self, args: Tuple) -> bool:
+        for i in args:
+            if self.__states[i].is_final():
+                return True
+        return False
