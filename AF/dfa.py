@@ -16,7 +16,7 @@ class Dfa:
         :param automaton dictionary :
         """
         self.__automaton = automaton
-        self.__states: list = self._get_states()
+        self.__states: list = sorted(self._get_states(), key=lambda x: x.state)
         self.__alphabet: dict = self.__automaton["alphabet"]
         self.__dictionary: dict = self._dictionary()
         if not self.__automaton["deterministic"]:
@@ -71,7 +71,6 @@ class Dfa:
 
     def _read(self, word: str, state: int) -> bool:
         if len(word) == 0:
-            # FIXME : list non sorted
             return self.__states[state].is_final()
         char: str = word[0]
         if char not in self.__alphabet:

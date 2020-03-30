@@ -13,7 +13,7 @@ if __name__ == "__main__":
         c = con.minimize()
         print(c.automaton)
         print(c.read("aab"))
-        print(con.read("b"))
+        print(con.read("aab"))
     with open("nfa.json", "r") as f:
         data = json.load(f)
         con = Nfa(data)
