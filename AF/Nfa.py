@@ -34,9 +34,9 @@ class Nfa:
         return self.__dictionary
 
     def determine(self) -> Dfa:
-        start = self._start_state().state
-        table = {tuple([start]): self.__dictionary[start]}  # initial _dictionary
-        next_key = self._next_key(table, self._get_values(start, self.__dictionary))
+        start = tuple(map(lambda x: x.state, self._start_state()))
+        table = {start: self._morphs_key(start)}  # initial _dictionary
+        next_key = self._next_key(table, self._get_values(start, table))
         return self._to_dfa(self._determine(next_key, table))
 
     def _determine(self, key: Tuple, table: Dict) -> Dict:
@@ -70,9 +70,10 @@ class Nfa:
                             for s in self.__alphabet}} for key in _list_keys]
 
     def _is_start_state(self, args: tuple) -> bool:
-        if len(args) == 1:
-            return self.__states[args[0]].is_start()
-        return False
+        for i in args:
+            if not self.__states[i].is_start():
+                return False
+        return True
 
     def _is_final_state(self, args: Tuple) -> bool:
         for i in args:
@@ -80,9 +81,9 @@ class Nfa:
                 return True
         return False
 
-    def _start_state(self) -> State_fa:
-        start_state = (x for x in self.__states if x.is_start())
-        return next(start_state)
+    def _start_state(self) -> Tuple[Any, ...]:
+        start_state = [x for x in self.__states if x.is_start()]
+        return tuple(start_state)
 
     def _get_states(self) -> list:
         return [State_fa(i["state"]
