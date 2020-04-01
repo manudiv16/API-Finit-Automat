@@ -17,6 +17,7 @@ class Nfa:
         if self.__automaton["deterministic"]:
             raise TypeError
 
+
     @property
     def automaton(self):
         return self.__automaton

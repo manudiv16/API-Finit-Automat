@@ -9,7 +9,7 @@ if __name__ == "__main__":
         data = json.load(f)
 
         con = Dfa(data)
-        print(con.automaton)
+        print(con.dictionary)
         c = con.minimize()
         print(c.automaton)
         print(c.read("aab"))
