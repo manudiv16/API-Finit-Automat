@@ -153,14 +153,3 @@ class Dfa:
 
     def __str__(self):
         return str(self.__repr__())
-
-    def _is_start_state(self, args: tuple) -> bool:
-        if len(args) == 1:
-            return self.__states[args[0]].is_start()
-        return False
-
-    def _is_final_state(self, args: Tuple) -> bool:
-        for i in args:
-            if self.__states[i].is_final():
-                return True
-        return False
