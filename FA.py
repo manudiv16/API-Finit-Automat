@@ -11,7 +11,8 @@ if __name__ == "__main__":
         con = Dfa(data)
         print(con.dictionary)
         c = con.minimize()
-        print(c.dictionary)
+        print(c)
+        print(c.minimize())
         print(c.read("aab"))
         print(con.read("aab"))
     with open("nfa.json", "r") as f:

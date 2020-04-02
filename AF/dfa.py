@@ -43,8 +43,8 @@ class Dfa:
         Initialize sets with final states and the others , generate _dictionary with the minimized automaton
         :return _dictionary:
         """
-        automaton_minimized = self._minimize(self._final_or_not())
-        return self._to_dfa(self._put_the_morphs(automaton_minimized))
+        automaton_minimized = self._minimized()
+        return self._to_DFA(automaton_minimized)
 
     def _dictionary(self) -> dict:
         """
@@ -143,9 +143,11 @@ class Dfa:
         minimized_dict = {}
         for elem in lists:
             if len(elem) == 1:
-                minimized_dict[min(elem)] = {s: exist(self.__states[list(elem)[0]].morphs[s]) for s in self.__alphabet}
+                minimized_dict[min(elem)] = {s: exist(self.__states[list(elem)[0]].morphs[s])
+                                             for s in self.__alphabet}
             else:
-                minimized_dict[min(elem)] = {x: min(elem) for x in self.__alphabet}
+                minimized_dict[min(elem)] = {x: min(elem)
+                                             for x in self.__alphabet}
         return minimized_dict
 
     def __repr__(self):
@@ -153,3 +155,9 @@ class Dfa:
 
     def __str__(self):
         return str(self.__repr__())
+
+    def _minimized(self):
+        return self._minimize(self._final_or_not())
+
+    def _to_DFA(self, automaton_minimized):
+        return self._to_dfa(self._put_the_morphs(automaton_minimized))

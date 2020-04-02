@@ -17,7 +17,6 @@ class Nfa:
         if self.__automaton["deterministic"]:
             raise TypeError
 
-
     @property
     def automaton(self):
         return self.__automaton
@@ -37,14 +36,16 @@ class Nfa:
     def determine(self) -> Dfa:
         start = tuple(map(lambda x: x.state, self._start_state()))
         table = {start: self._morphs_key(start)}  # initial _dictionary
-        next_key = self._next_key(table, self._get_values(start, table))
-        return self._to_dfa(self._determine(next_key, table))
+        next_key = self._next_key_in_table(start, table)
+        return self._to_DFA(next_key, table)
 
     def _determine(self, key: Tuple, table: Dict) -> Dict:
         if self._is_none_next_key(key):
             return table
         table[key] = self._morphs_key(key)  # set directed to morphism
-        next_key = self._next_key(table, self._get_values(key, table))
+        next_key = self._next_key_in_table(key, table)
+        table = self._determine(next_key, table)
+        next_key = self._next_key_in_table(key, table)
         return self._determine(next_key, table)
 
     def _morphs_key(self, key: tuple) -> dict:
@@ -83,7 +84,7 @@ class Nfa:
         return False
 
     def _start_state(self) -> Tuple[Any, ...]:
-        start_state = [x for x in self.__states if x.is_start()]
+        start_state = filter(lambda x: x.is_start(), self.__states)  # [x for x in self.__states if x.is_start()]
         return tuple(start_state)
 
     def _get_states(self) -> list:
@@ -114,3 +115,9 @@ class Nfa:
             if value not in table:
                 return value
         return None
+
+    def _next_key_in_table(self, start, table):
+        return self._next_key(table, self._get_values(start, table))
+
+    def _to_DFA(self, next_key, table):
+        return self._to_dfa(self._determine(next_key, table))
