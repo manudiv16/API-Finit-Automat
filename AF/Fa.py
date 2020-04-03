@@ -25,7 +25,7 @@ class Interface_Fa(abc.ABC):
         pass
 
 
-class Fa:
+class Fa(Interface_Fa):
     def __init__(self, automaton):
         self.__automaton = automaton
         if self.automaton["deterministic"]:
