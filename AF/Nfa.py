@@ -1,4 +1,4 @@
-from typing import Dict, Any, Tuple, List, Union
+from typing import Dict, Any, Tuple, List, Union, Generator
 
 from AF.State_fa import State_fa
 from AF.dfa import Dfa
@@ -33,6 +33,31 @@ class Nfa:
     def dictionary(self):
         return self.__dictionary
 
+    def read(self, word: str) -> Union[bool, str]:
+        """
+        the firsts states determines the start of the automaton
+        read set of symbols and determine this automaton accept this symbols
+        :param word:
+        :return boolean value :
+        """
+        for i in self._sets_start():
+            try:
+                return self._read(word, i.state)
+            except ValueError:
+                return "No Has intraducido una cadena valida"
+
+    def _read(self, word: str, state: int) -> bool:
+        if len(word) == 0:
+            return self.__states[state].is_final()
+        char: str = word[0]
+        if char not in self.__alphabet:
+            raise ValueError
+        for i in self.__dictionary[state][char]:
+            next_state: int = self.__dictionary[state][char][i]
+            if self._read(word[1:], next_state):
+                return True
+        return False
+
     def determine(self) -> Dfa:
         start = tuple(map(lambda x: x.state, self._start_state()))
         table = {start: self._morphs_key(start)}  # initial _dictionary
@@ -61,7 +86,8 @@ class Nfa:
     def _to_dfa(self, dictionary_convert: dict) -> Dfa:
         return Dfa({'deterministic': True,
                     'alphabet': self.__alphabet,
-                    'states': self._generate_list_states_dfa(dictionary_convert)})
+                    'states': self._generate_list_states_dfa(dictionary_convert)
+                    })
 
     def _generate_list_states_dfa(self, dic: dict) -> List[dict]:
         _list_keys = list(dic.keys())
@@ -121,3 +147,6 @@ class Nfa:
 
     def _to_DFA(self, next_key, table):
         return self._to_dfa(self._determine(next_key, table))
+
+    def _sets_start(self) -> Generator[Any, Any, None]:
+        return (x for x in self.__states if x.is_start())

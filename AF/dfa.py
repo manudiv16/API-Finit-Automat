@@ -59,7 +59,6 @@ class Dfa:
     def read(self, word: str) -> Union[bool, str]:
         """
         the firsts states determines the start of the automaton
-        read set of symbols and determine this automaton accept this symbols
         :param word:
         :return boolean value :
         """

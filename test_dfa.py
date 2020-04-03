@@ -5,11 +5,11 @@ import json
 
 
 def read_automaton():
-    with open("dfa.json", "r") as f:
+    with open("json/dfa.json", "r") as f:
         return json.load(f)
 
 
-class MyTestCase(unittest.TestCase):
+class Test_Dfa(unittest.TestCase):
 
     def test_Dictionary(self):
         correct_dict = {0: {'a': 1, 'b': 2}, 1: {'a': 3, 'b': 5},
@@ -18,7 +18,7 @@ class MyTestCase(unittest.TestCase):
                         6: {'a': 6, 'b': 5}, 7: {'a': 6, 'b': 7}}
         dfa = Dfa(read_automaton())
         self.assertEqual(correct_dict, dfa.dictionary)
-
+        
     def test_Minimize(self):
         correct_sets = [{0}, {1}, {2}, {3}, {4}, {5, 6, 7}]
         dfa = Dfa(read_automaton())

@@ -1,0 +1,63 @@
+{
+    "deterministic":true,
+    "alphabet": [
+      "a",
+      "b"
+    ],
+    "states": [
+      {
+        "state": 0,
+        "final": false,
+        "start": false,
+        "morphs": {
+          "a": 1,
+          "b": 0
+        }
+      },
+      {
+        "state": 1,
+        "final": true,
+        "start": false,
+        "morphs": {
+          "a": 2,
+          "b": 2
+        }
+      },
+      {
+        "state": 2,
+        "final": true,
+        "start": false,
+        "morphs": {
+          "a": 2,
+          "b": 2
+        }
+      },
+      {
+        "state": 3,
+        "final": false,
+        "start": true,
+        "morphs": {
+          "a": 0,
+          "b": 4
+        }
+      },
+      {
+        "state": 4,
+        "final": false,
+        "start": false,
+        "morphs": {
+          "a": 5,
+          "b": 4
+        }
+      },
+      {
+        "state": 5,
+        "final": false,
+        "start": false,
+        "morphs": {
+          "a": 2,
+          "b": 4
+        }
+      }
+    ]
+  }
