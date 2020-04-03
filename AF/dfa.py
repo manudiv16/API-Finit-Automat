@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Tuple, Generator, Any, List, Union, Dict
 from AF.State_fa import State_fa
-from AF.Fa import Interface_Fa
+from AF.fa_interface import Interface_Fa
 
 
 class Dfa(Interface_Fa):

@@ -1,28 +1,6 @@
-import abc
 from AF.dfa import Dfa
-from AF.Nfa import Nfa
-
-
-class Interface_Fa(abc.ABC):
-    @abc.abstractmethod
-    def dictionary(self):
-        pass
-
-    @abc.abstractmethod
-    def read(self, world: str):
-        pass
-
-    @abc.abstractmethod
-    def automaton(self):
-        pass
-
-    @abc.abstractmethod
-    def states(self):
-        pass
-
-    @abc.abstractmethod
-    def alphabet(self):
-        pass
+from AF.nfa import Nfa
+from AF.fa_interface import Interface_Fa
 
 
 class Fa(Interface_Fa):

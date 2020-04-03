@@ -2,7 +2,7 @@ from typing import Dict, Any, Tuple, List, Union, Generator
 
 from AF.State_fa import State_fa
 from AF.dfa import Dfa
-from AF.Fa import Interface_Fa
+from AF.fa_interface import Interface_Fa
 
 
 class Nfa(Interface_Fa):

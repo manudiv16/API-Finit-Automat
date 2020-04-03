@@ -1,7 +1,7 @@
 import json
 
 
-from AF.Nfa import Nfa
+from AF.nfa import Nfa
 from AF.dfa import Dfa
 
 if __name__ == "__main__":
