@@ -2,9 +2,14 @@ from typing import Dict, Any, Tuple, List, Union, Generator
 
 from AF.State_fa import State_fa
 from AF.dfa import Dfa
+from AF.Fa import Interface_Fa
 
 
-class Nfa:
+class Nfa(Interface_Fa):
+    """
+        Create non deterministic finite automaton
+    """
+
     def __init__(self, automaton):
         """
         Init a attributes of automaton
