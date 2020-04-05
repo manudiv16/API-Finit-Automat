@@ -58,18 +58,17 @@ class Nfa(Interface_Fa):
         if char not in self.__alphabet:
             raise ValueError
         for i in self.__dictionary[state][char]:
-            next_state: int = self.__dictionary[state][char][i]
-            if self._read(word[1:], next_state):
+            if self._read(word[1:],i):
                 return True
         return False
 
     def determine(self) -> Dfa:
         start = tuple(map(lambda x: x.state, self._start_state()))
-        table = {start: self._morphs_key(start)}  # initial _dictionary
-        next_key = self._next_key_in_table(start, table)
-        return self._to_DFA(next_key, table)
+        return self._to_DFA(start)
 
-    def _determine(self, key: Tuple, table: Dict) -> Dict:
+    def _determine(self, key: Tuple, table=None) -> Dict:
+        if table is None:
+            table = {}
         if self._is_none_next_key(key):
             return table
         table[key] = self._morphs_key(key)  # set directed to morphism
@@ -150,8 +149,8 @@ class Nfa(Interface_Fa):
     def _next_key_in_table(self, start, table):
         return self._next_key(table, self._get_values(start, table))
 
-    def _to_DFA(self, next_key, table):
-        return self._to_dfa(self._determine(next_key, table))
+    def _to_DFA(self, next_key):
+        return self._to_dfa(self._determine(next_key))
 
     def _sets_start(self) -> Generator[Any, Any, None]:
         return (x for x in self.__states if x.is_start())

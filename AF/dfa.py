@@ -1,6 +1,6 @@
 """Este es el docstring de mi_paquete"""
 from __future__ import annotations
-
+from PySimpleAutomata import automata_IO
 from typing import Tuple, Generator, Any, List, Union, Dict
 from AF.State_fa import State_fa
 from AF.fa_interface import Interface_Fa
@@ -159,5 +159,16 @@ class Dfa(Interface_Fa):
     def _minimized(self):
         return self._minimize(self._final_or_not())
 
-    def _to_DFA(self, automaton_minimized):
+    def _to_DFA(self, automaton_minimized: Dict) -> Dfa:
         return self._to_dfa(self._put_the_morphs(automaton_minimized))
+
+    def dot_dictionary(self, name: str) -> None:
+        dot = {
+            'alphabet': self.__alphabet,
+            'states': {str(x.state) for x in self.__states},
+            'initial_state': str(list(self._sets_start())[0]),
+            'accepting_states': set(str(x.state) for x in self.__states if x.is_final()),
+            'transitions': {(str(x.state), i): x.morphs[i]
+                            for x in self.__states for i in self.alphabet}
+        }
+        automata_IO.dfa_to_dot(dot, name, ".")
