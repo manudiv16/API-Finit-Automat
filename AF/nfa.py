@@ -2,10 +2,10 @@ from typing import Dict, Any, Tuple, List, Union, Generator
 
 from AF.State_fa import State_fa
 from AF.dfa import Dfa
-from AF.fa_interface import Interface_Fa
+from AF.fa_interface import InterfaceFa
 
 
-class Nfa(Interface_Fa):
+class Nfa(InterfaceFa):
     """
         Create non deterministic finite automaton
     """
@@ -58,13 +58,14 @@ class Nfa(Interface_Fa):
         if char not in self.__alphabet:
             raise ValueError
         for i in self.__dictionary[state][char]:
-            if self._read(word[1:],i):
+            if self._read(word[1:], i):
                 return True
         return False
 
     def determine(self) -> Dfa:
         start = tuple(map(lambda x: x.state, self._start_state()))
-        return self._to_DFA(start)
+        determined = self._determine(start)
+        return self._to_dfa(determined)
 
     def _determine(self, key: Tuple, table=None) -> Dict:
         if table is None:
@@ -118,10 +119,10 @@ class Nfa(Interface_Fa):
         return tuple(start_state)
 
     def _get_states(self) -> list:
-        return [State_fa(i["state"]
-                         , i["final"]
-                         , i["start"]
-                         , i["morphs"]) for i in self.__automaton["states"]]
+        return [State_fa(i["state"],
+                         i["final"],
+                         i["start"],
+                         i["morphs"]) for i in self.__automaton["states"]]
 
     def _dictionary(self) -> Dict:
         return {h.state: {j: tuple(h.morphs[j])
@@ -148,9 +149,6 @@ class Nfa(Interface_Fa):
 
     def _next_key_in_table(self, start, table):
         return self._next_key(table, self._get_values(start, table))
-
-    def _to_DFA(self, next_key):
-        return self._to_dfa(self._determine(next_key))
 
     def _sets_start(self) -> Generator[Any, Any, None]:
         return (x for x in self.__states if x.is_start())

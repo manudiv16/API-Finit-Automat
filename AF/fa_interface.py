@@ -1,7 +1,7 @@
 import abc
 
 
-class Interface_Fa(abc.ABC):
+class InterfaceFa(abc.ABC):
     @abc.abstractmethod
     def dictionary(self):
         pass

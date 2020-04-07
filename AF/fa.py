@@ -1,9 +1,9 @@
 from AF.dfa import Dfa
 from AF.nfa import Nfa
-from AF.fa_interface import Interface_Fa
+from AF.fa_interface import InterfaceFa
 
 
-class Fa(Interface_Fa):
+class Fa(InterfaceFa):
     def __init__(self, automaton):
         self.__automaton = automaton
         if self.automaton["deterministic"]:

@@ -3,10 +3,10 @@ from __future__ import annotations
 from PySimpleAutomata import automata_IO
 from typing import Tuple, Generator, Any, List, Union, Dict
 from AF.State_fa import State_fa
-from AF.fa_interface import Interface_Fa
+from AF.fa_interface import InterfaceFa
 
 
-class Dfa(Interface_Fa):
+class Dfa(InterfaceFa):
     """
         Create deterministic finite automaton
     """
@@ -14,7 +14,7 @@ class Dfa(Interface_Fa):
     def __init__(self, automaton):
         """
         Initialize a attributes of automaton
-        :param automaton dictionary :
+        :param automaton :
         """
         self.__automaton = automaton
         self.__states: list = sorted(self._get_states(), key=lambda x: x.state)
@@ -159,7 +159,7 @@ class Dfa(Interface_Fa):
     def _minimized(self):
         return self._minimize(self._final_or_not())
 
-    def _to_DFA(self, automaton_minimized: Dict) -> Dfa:
+    def _to_DFA(self, automaton_minimized: List) -> Dfa:
         return self._to_dfa(self._put_the_morphs(automaton_minimized))
 
     def dot_dictionary(self, name: str) -> None:

@@ -1,6 +1,5 @@
 import json
 
-
 from AF.nfa import Nfa
 from AF.dfa import Dfa
 
@@ -22,4 +21,3 @@ if __name__ == "__main__":
         print(h)
         h.dot_dictionary("que")
         print(con.read("ab"))
-
