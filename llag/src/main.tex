@@ -27,6 +27,7 @@
 \fancyhf{}
 
 \lhead{\thetitle}
+\rhead{\theauthor}
 \cfoot{\thepage}
 %\addto\captionspanish{
 \renewcommand*\contentsname{Índex}%}
@@ -66,6 +67,8 @@
         \vfill
 
     \end{titlepage}
+    \tableofcontents
+    \pagebreak
     \section{Introducción}
     En esta practica he realizado el proceso de reconocimiento de un autómata, su lectura, la minimización y la determinación de alguno de ellos. He realizado esta practica con el lenguaje de programación \textit{python}, he creado cuatro clases las cuales me ayudaran a desglosar los problemas que la practica requería. Me he basado mayormente en una programación orientada a la inmutabilidad y en la simplicidad de las funciones. Las clases que he creado y que mas tarde explicare con mas detalle son : \textbf{dfa}(\textit{deterministic finit automaton}), \textbf{fa} (\textit{finit automaton}), \textbf{nfa}(\textit{non deterninistic finit automaton}) y por ultimo  \textbf{StateFa}.Estas definirán el comportamiento de nuestros autómatas.
 

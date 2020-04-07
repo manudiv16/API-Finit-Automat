@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2020.4.7)  7 APR 2020 20:53
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2020.4.7)  7 APR 2020 22:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -286,31 +286,25 @@ LaTeX Font Info:    Try loading font information for T1+lmr on input line 105.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ))
-(/Users/manu/PycharmProjects/Finit_Automat/llag/out/main.aux
-
-Package babel Warning: Unknown language `spanish'. Very likely you
-(babel)                requested it in a previous run. Expect some
-(babel)                wrong results in this run, which should vanish
-(babel)                in the next one. Reported on input line 6.
-
-)
+(/Users/manu/PycharmProjects/Finit_Automat/llag/out/main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
- (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+
+(/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count113
 \scratchdimen=\dimen124
@@ -324,10 +318,10 @@ LaTeX Font Info:    ... okay on input line 34.
 \makeMPintoPDFobject=\count118
 \everyMPtoPDFconversion=\toks26
 )
-./main.tex:34: Undefined control sequence.
+./main.tex:35: Undefined control sequence.
 <argument> \ifnum \pdfshellescape 
                                   >0 \edef \Gin@extensions {\Gin@extensions ...
-l.34 \begin{document}
+l.35 \begin{document}
                      
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -335,10 +329,10 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-./main.tex:34: Missing number, treated as zero.
+./main.tex:35: Missing number, treated as zero.
 <to be read again> 
                    >
-l.34 \begin{document}
+l.35 \begin{document}
                      
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -349,34 +343,38 @@ File: 1.png Graphic file (type bmp)
 <1.png>
 [1
 
-]
-Overfull \hbox (8.73434pt too wide) in paragraph at lines 70--71
+] (/Users/manu/PycharmProjects/Finit_Automat/llag/out/main.toc)
+\tf@toc=\write3
+\openout3 = `main.toc'.
+
+ [1]
+Overfull \hbox (8.73434pt too wide) in paragraph at lines 73--74
 \T1/lmr/m/n/10 En esta practica he realizado el proceso de reconocimiento de un
  autómata, su lectura, la minimización
  []
 
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 77.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 80.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 77.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 80.
 
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 77.
- [1] [2]
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 80.
+ [2] [3]
 (/Users/manu/PycharmProjects/Finit_Automat/llag/out/main.aux) ) 
 Here is how much of TeX's memory you used:
- 5124 strings out of 492916
- 67972 string characters out of 6133346
- 160912 words of memory out of 5000000
- 9101 multiletter control sequences out of 15000+600000
+ 5125 strings out of 492916
+ 68060 string characters out of 6133346
+ 160914 words of memory out of 5000000
+ 9099 multiletter control sequences out of 15000+600000
  45307 words of font info for 31 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  37i,11n,43p,812b,226s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on /Users/manu/PycharmProjects/Finit_Automat/llag/out/main.pdf (
-3 pages).
+4 pages).
