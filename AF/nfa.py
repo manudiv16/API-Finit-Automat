@@ -1,6 +1,6 @@
 from typing import Dict, Any, Tuple, List, Union, Generator
 
-from AF.State_fa import State_fa
+from AF.StateFa import StateFa
 from AF.dfa import Dfa
 from AF.fa_interface import InterfaceFa
 
@@ -119,10 +119,10 @@ class Nfa(InterfaceFa):
         return tuple(start_state)
 
     def _get_states(self) -> list:
-        return [State_fa(i["state"],
-                         i["final"],
-                         i["start"],
-                         i["morphs"]) for i in self.__automaton["states"]]
+        return [StateFa(i["state"],
+                        i["final"],
+                        i["start"],
+                        i["morphs"]) for i in self.__automaton["states"]]
 
     def _dictionary(self) -> Dict:
         return {h.state: {j: tuple(h.morphs[j])

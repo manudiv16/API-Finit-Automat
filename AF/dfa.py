@@ -2,7 +2,7 @@
 from __future__ import annotations
 from PySimpleAutomata import automata_IO
 from typing import Tuple, Generator, Any, List, Union, Dict
-from AF.State_fa import State_fa
+from AF.StateFa import StateFa
 from AF.fa_interface import InterfaceFa
 
 
@@ -45,7 +45,8 @@ class Dfa(InterfaceFa):
         :return _dictionary:
         """
         automaton_minimized = self._minimized()
-        return self._to_DFA(automaton_minimized)
+        totaly_minimized = self._put_the_morphs(automaton_minimized)
+        return self._to_dfa(totaly_minimized)
 
     def _dictionary(self) -> dict:
         """
@@ -120,10 +121,10 @@ class Dfa(InterfaceFa):
         return out, in_
 
     def _get_states(self) -> list:
-        return [State_fa(i["state"]
-                         , i["final"]
-                         , i["start"]
-                         , i["morphs"]) for i in self.__automaton["states"]]
+        return [StateFa(i["state"]
+                        , i["final"]
+                        , i["start"]
+                        , i["morphs"]) for i in self.__automaton["states"]]
 
     def _to_dfa(self, dict_automaton: Dict) -> Dfa:
         return Dfa({'deterministic': True,
@@ -159,15 +160,12 @@ class Dfa(InterfaceFa):
     def _minimized(self):
         return self._minimize(self._final_or_not())
 
-    def _to_DFA(self, automaton_minimized: List) -> Dfa:
-        return self._to_dfa(self._put_the_morphs(automaton_minimized))
-
     def dot_dictionary(self, name: str) -> None:
         dot = {
             'alphabet': self.__alphabet,
             'states': {str(x.state) for x in self.__states},
             'initial_state': str(list(self._sets_start())[0]),
-            'accepting_states': set(str(x.state) for x in self.__states if x.is_final()),
+            'accepting_states': {str(x.state) for x in self.__states if x.is_final()},
             'transitions': {(str(x.state), i): x.morphs[i]
                             for x in self.__states for i in self.alphabet}
         }

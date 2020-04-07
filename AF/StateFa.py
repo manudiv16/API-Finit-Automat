@@ -1,4 +1,4 @@
-class State_fa:
+class StateFa:
     """
         Create state of finite automaton
     """
