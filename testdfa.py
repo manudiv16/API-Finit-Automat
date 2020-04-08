@@ -9,7 +9,7 @@ def read_automaton():
         return json.load(f)
 
 
-class Test_Dfa(unittest.TestCase):
+class TestDfa(unittest.TestCase):
 
     def test_Dictionary(self):
         correct_dict = {0: {'a': 1, 'b': 2}, 1: {'a': 3, 'b': 5},
