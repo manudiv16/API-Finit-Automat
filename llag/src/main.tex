@@ -92,7 +92,8 @@
     Algo que nos provee python es el tipado dinámico que ayuda en el momento que queremos almacenar las funciones de transición en los estados, ya que en un autómata determinista estará formado por un símbolo y en el caso de un no determinista estará formado por una lista.
 
     \section{Automata Finito Determinista}
-    Esta clase dará comportamiento a los autómatas finitos deterministas. Para inicializarla crearemos una tabla de hash que es la estructura de datos en la que me apoyare, una lista de los estados que serán inicializados dentro de esta clase y los valores del alfabeto.
+    Esta clase dará comportamiento a los autómatas finitos deterministas.
+    Para inicializarla crearemos una tabla de hash que es la estructura de datos en la que me apoyare, una lista de los estados que serán inicializados dentro de esta clase y los valores del alfabeto.
     Aparte de las funciones descritas en el apartado de la interfaz esta clase también tendrá la función de minimizar.
     \subsection{Leer}
     Para comenzar en esta función cojo el estado inicial y mediante \textit{tail recursion} voy cogiendo el primer elemento de la palabra y recorro los estados hasta que no tengo ningún elemento mas que leer, en ese momento devuelvo si el estado actual es un estado aceptador.

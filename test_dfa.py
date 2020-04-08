@@ -18,7 +18,7 @@ class Test_Dfa(unittest.TestCase):
                         6: {'a': 6, 'b': 5}, 7: {'a': 6, 'b': 7}}
         dfa = Dfa(read_automaton())
         self.assertEqual(correct_dict, dfa.dictionary)
-        
+
     def test_Minimize(self):
         correct_sets = [{0}, {1}, {2}, {3}, {4}, {5, 6, 7}]
         dfa = Dfa(read_automaton())
@@ -34,8 +34,8 @@ class Test_Dfa(unittest.TestCase):
                         4: {'a': 3, 'b': 2}, 5: {'a': 5, 'b': 5}}
         dfa = Dfa(read_automaton())
         set_minimized = dfa._minimize(dfa._final_or_not())
-        complet_dfa = dfa._put_the_morphs(set_minimized)
-        self.assertEqual(complet_dfa, correct_dict)
+        complete_dfa = dfa._put_the_morphs(set_minimized)
+        self.assertEqual(complete_dfa, correct_dict)
 
 
 if __name__ == '__main__':

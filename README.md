@@ -7,5 +7,4 @@ finite-automat
 - [ ] Construcció AF que reconegui la unió (intersecció, concatenació...) de llenguatges regulars
 - [x] Private and super private 
 - [x] @properties Sates_af get set
-- [ ] @classmethod Dfa para devolver la misma clase
 

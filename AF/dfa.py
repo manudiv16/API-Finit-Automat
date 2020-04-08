@@ -44,9 +44,10 @@ class Dfa(InterfaceFa):
         Initialize sets with final states and the others , generate _dictionary with the minimized automaton
         :return _dictionary:
         """
-        automaton_minimized = self._final_or_not(transitions=self._put_the_morphs,
-                                                 minimize=self._minimize)
-        return self._to_dfa(automaton_minimized)
+
+        automaton_minimized = self._minimize(self._final_or_not())
+        minimized = self._put_the_morphs(automaton_minimized)
+        return self._to_dfa(minimized)
 
     def _dictionary(self) -> dict:
         """
@@ -55,8 +56,7 @@ class Dfa(InterfaceFa):
         """
         return {h.state: {j: h.morphs[j]
                           for j in self.__alphabet}
-                for h in self.__states
-                }
+                for h in self.__states}
 
     def read(self, word: str) -> Union[bool, str]:
         """
@@ -79,12 +79,12 @@ class Dfa(InterfaceFa):
         next_state: int = self.__dictionary[state][char]
         return self._read(word[1:], next_state)
 
-    def _final_or_not(self, minimize, transitions) -> Dict:
+    def _final_or_not(self) -> Tuple[set, set]:
         finals_states = set(x for x in self.__states if x.is_final())
         non_final_states = finals_states ^ set(self.__states)
         finals_states = {x.state for x in finals_states}
         non_final_states = {x.state for x in non_final_states}
-        return transitions(minimize((finals_states, non_final_states)))
+        return finals_states, non_final_states
 
     def _sets_start(self) -> Generator[Any, Any, None]:
         return (x for x in self.__states if x.is_start())
