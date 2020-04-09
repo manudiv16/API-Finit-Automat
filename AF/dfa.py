@@ -1,7 +1,10 @@
 """Este es el docstring de mi_paquete"""
 from __future__ import annotations
-from PySimpleAutomata import automata_IO
+
 from typing import Tuple, Generator, Any, List, Union, Dict
+
+from PySimpleAutomata import automata_IO
+
 from AF.StateFa import StateFa
 from AF.fa_interface import InterfaceFa
 
@@ -124,16 +127,17 @@ class Dfa(InterfaceFa):
         return [StateFa(i["state"],
                         i["final"],
                         i["start"],
-                        i["morphs"]) for i in self.__automaton["states"]]
+                        i["morphs"])
+                for i in self.__automaton["states"]]
 
     def _to_dfa(self, dict_automaton: Dict) -> Dfa:
-        return Dfa({'deterministic': True,
-                    'alphabet': self.__alphabet,
-                    'states': [{'state': key,
-                                'final': self.__states[key].is_final(),
-                                'start': self.__states[key].is_start(),
-                                'morphs': dict_automaton[key]} for key in dict_automaton]
-                    })
+        return Dfa(dict(deterministic=True,
+                        alphabet=self.__alphabet,
+                        states=[dict(state=key,
+                                     final=self.__states[key].is_final(),
+                                     start=self.__states[key].is_start(),
+                                     morphs=dict_automaton[key]) for key in
+                                dict_automaton]))
 
     def _put_the_morphs(self, lists):
         def exist(s):
@@ -158,12 +162,9 @@ class Dfa(InterfaceFa):
         return str(self.__repr__())
 
     def dot_dictionary(self, name: str) -> None:
-        dot = {
-            'alphabet': self.__alphabet,
-            'states': {str(x.state) for x in self.__states},
-            'initial_state': str(list(self._sets_start())[0]),
-            'accepting_states': {str(x.state) for x in self.__states if x.is_final()},
-            'transitions': {(str(x.state), i): x.morphs[i]
-                            for x in self.__states for i in self.alphabet}
-        }
+        dot = dict(initial_state=str(list(self._sets_start())[0]),
+                   alphabet=self.__alphabet, states={str(x.state) for x in self.__states},
+                   accepting_states={str(x.state) for x in self.__states if x.is_final()},
+                   transitions={(str(x.state), i): x.morphs[i]
+                                for x in self.__states for i in self.alphabet})
         automata_IO.dfa_to_dot(dot, name, ".")

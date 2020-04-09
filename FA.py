@@ -8,9 +8,7 @@ if __name__ == "__main__":
         data = json.load(f)
 
         con = Dfa(data)
-        print(con.dot_dictionary("hola1"))
         c = con.minimize()
-        print(c.dot_dictionary("hola"))
         print(c.minimize())
         print(c.read("aab"))
         print(con.read("aab"))
@@ -19,5 +17,4 @@ if __name__ == "__main__":
         con = Nfa(data)
         h = con.determine()
         print(h)
-        h.dot_dictionary("que")
         print(con.read("ab"))

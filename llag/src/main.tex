@@ -69,7 +69,12 @@
     \tableofcontents
     \pagebreak
     \section{Introducción}\label{sec:introducción}
-    En esta practica he realizado el proceso de reconocimiento de un autómata, su lectura, la minimización y la determinación de alguno de ellos. He realizado esta practica con el lenguaje de programación \textit{python}, he creado cuatro clases las cuales me ayudaran a desglosar los problemas que la practica requería. Me he basado mayormente en una programación orientada a la inmutabilidad y en la simplicidad de las funciones. Las clases que he creado y que mas tarde explicare con mas detalle son : \textbf{dfa}(\textit{deterministic finit automaton}), \textbf{fa} (\textit{finit automaton}), \textbf{nfa}(\textit{non deterninistic finit automaton}) y por ultimo  \textbf{StateFa}.Estas definirán el comportamiento de nuestros autómatas.
+    En esta practica he realizado el proceso de reconocimiento de un autómata, su lectura, la minimización y la determinación de alguno de ellos.
+    He realizado esta practica con el lenguaje de programación \textit{python}, he creado cuatro clases las cuales me ayudaran a desglosar los problemas que la practica requería.
+    Me he basado mayormente en una programación orientada a la inmutabilidad y en la simplicidad de las funciones.
+    Las clases que he creado y que mas tarde explicare con mas detalle son : \textbf{dfa}(\textit{deterministic finit automaton}), \textbf{fa} (\textit{finit automaton}), \textbf{nfa}(\textit{non deterninistic finit automaton}) y por ultimo  \textbf{StateFa}.
+    Estas definirán el comportamiento de nuestros autómatas.
+    Para la introducción de nuestros autómatas usaremos ficheros \textit{json}, por la facilidad que \textit{python} nos ofrece para su manejo.
 
 
 
@@ -91,8 +96,7 @@
     Algo que nos provee python es el tipado dinámico que ayuda en el momento que queremos almacenar las funciones de transición en los estados, ya que en un autómata determinista estará formado por un símbolo y en el caso de un no determinista estará formado por una lista.
 
     \section{Automata Finito Determinista}\label{sec:automata-finito-determinista}
-    Esta clase dará comportamiento a los autómatas finitos deterministas.
-    Para inicializarla crearemos una tabla de hash que es la estructura de datos en la que me apoyare, una lista de los estados que serán inicializados dentro de esta clase y los valores del alfabeto.
+    Esta clase dará comportamiento a los autómatas finitos deterministas. Para inicializarla crearemos una tabla de hash que es la estructura de datos en la que me apoyare, una lista de los estados que serán inicializados dentro de esta clase y los valores del alfabeto.
     Aparte de las funciones descritas en el apartado de la interfaz esta clase también tendrá la función de minimizar.
     \subsection{Leer}\label{subsec:leer2}
     Para comenzar en esta función cojo el estado inicial y mediante \textit{tail recursion} voy cogiendo el primer elemento de la palabra y recorro los estados hasta que no tengo ningún elemento mas que leer, en ese momento devuelvo si el estado actual es un estado aceptador.
@@ -111,7 +115,7 @@
     \subsection{Leer}\label{subsec:leer}
     Este método es similar al método de la anterior clase pero con alguna variación para que en lugar de leer solo en una dirección lea todos los estados dentro de las funciones de transición. Como en la anterior también tiene una excepción si alguno de los símbolos leídos no es admitido.
 
-    \subsection{Determinación del autómata}\label{subsec:determinación-del-autómata}
+    \subsection{Determinación del autómata}
     Para comenzar agrupamos todos los estados iniciales en un solo estado y comenzamos una la construcción de una tabla, con una tabla de hash, cogeremos la llave de nuestra tabla i miraremos sus transiciones, con otra función miraremos si los estados nuevos ya están en la tabla si no es así lo añadiremos de forma recursiva y aplicando \textit{Dsf} vamos construyendo la tabla con los estados de nuestro autómata determinado. Cuando ya tenemos nuestra tabla completa i no queda ningún estado por añadir, transformamos el autómata y lo renombramos para que sea mas legible y para la parte final de esta función que transformara el autómata en una instancia nueva de un autómata finito determinista.
 
     \section{Autómata finito}\label{sec:autómata-finito}
