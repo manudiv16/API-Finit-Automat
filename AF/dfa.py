@@ -1,7 +1,7 @@
 """Este es el docstring de mi_paquete"""
 from __future__ import annotations
 
-from typing import Tuple, Generator, Any, List, Union, Dict
+from typing import Tuple, List, Union, Dict
 
 from PySimpleAutomata import automata_IO
 
@@ -48,9 +48,22 @@ class Dfa(InterfaceFa):
         :return _dictionary:
         """
 
-        automaton_minimized = self._minimize(self._final_or_not())
+        initial_sets = self._final_or_not()
+        automaton_minimized = self._minimize(initial_sets)
         minimized = self._put_the_morphs(automaton_minimized)
         return self._to_dfa(minimized)
+
+    def read(self, word: str) -> Union[bool, str]:
+        """
+        the firsts states determines the start of the automaton
+        :param word:
+        :return boolean value :
+        """
+        start = self._sets_start()
+        try:
+            return self._read(word, start.state)
+        except ValueError:
+            return "No Has intraducido una cadena valida"
 
     def _dictionary(self) -> dict:
         """
@@ -61,21 +74,10 @@ class Dfa(InterfaceFa):
                           for j in self.__alphabet}
                 for h in self.__states}
 
-    def read(self, word: str) -> Union[bool, str]:
-        """
-        the firsts states determines the start of the automaton
-        :param word:
-        :return boolean value :
-        """
-        for i in self._sets_start():
-            try:
-                return self._read(word, i.state)
-            except ValueError:
-                return "No Has intraducido una cadena valida"
-
     def _read(self, word: str, state: int) -> bool:
         if len(word) == 0:
             return self.__states[state].is_final()
+
         char: str = word[0]
         if char not in self.__alphabet:
             raise ValueError
@@ -89,8 +91,8 @@ class Dfa(InterfaceFa):
         non_final_states = {x.state for x in non_final_states}
         return finals_states, non_final_states
 
-    def _sets_start(self) -> Generator[Any, Any, None]:
-        return (x for x in self.__states if x.is_start())
+    def _sets_start(self) -> StateFa:
+        return list(x for x in self.__states if x.is_start())[0]
 
     def _minimize(self, sets) -> list:
         category = []

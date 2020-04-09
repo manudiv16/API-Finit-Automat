@@ -45,11 +45,12 @@ class Nfa(InterfaceFa):
         :param word:
         :return boolean value :
         """
-        for i in self._sets_start():
-            try:
-                return self._read(word, i.state)
-            except ValueError:
-                return "No Has intraducido una cadena valida"
+        start_sets = self._sets_start()
+        try:
+            casuistic = [self._read(word, i.state) for i in start_sets]
+        except ValueError:
+            return "No Has intraducido una cadena valida"
+        return any(casuistic)
 
     def _read(self, word: str, state: int) -> bool:
         if len(word) == 0:
@@ -58,8 +59,7 @@ class Nfa(InterfaceFa):
         if char not in self.__alphabet:
             raise ValueError
         for i in self.__dictionary[state][char]:
-            if self._read(word[1:], i):
-                return True
+            return self._read(word[1:], i)
         return False
 
     def determine(self) -> Dfa:
@@ -74,7 +74,8 @@ class Nfa(InterfaceFa):
             return table
         table[key] = self._morphs_key(key)  # set directed to morphism
         next_key = self._next_key_in_table(key, table)
-        table = self._determine(next_key, table)
+        table = self._determine(next_key, table)  # recursive call
+
         next_key = self._next_key_in_table(key, table)
         return self._determine(next_key, table)
 

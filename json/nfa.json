@@ -20,15 +20,15 @@
         "start": false,
         "morphs": {
           "a": [],
-          "b": [2]
+          "b": [3]
         }
       },
       {
         "state": 2,
         "final": true,
-        "start": true,
+        "start": false,
         "morphs": {
-          "a": [3,2,1],
+          "a": [3,1],
           "b": [3]
         }
       },
@@ -38,7 +38,7 @@
         "start": false,
         "morphs": {
           "a": [3],
-          "b": [3]
+          "b": [3,2]
         }
       }
     ]
