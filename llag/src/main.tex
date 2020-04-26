@@ -69,58 +69,92 @@
     \tableofcontents
     \pagebreak
     \section{Introducción}\label{sec:introducción}
-    En esta practica he realizado el proceso de reconocimiento de un autómata, su lectura, la minimización y la determinación de alguno de ellos.
-    He realizado esta practica con el lenguaje de programación \textit{python}, he creado cuatro clases las cuales me ayudaran a desglosar los problemas que la practica requería.
+    En esta practica he realizado el proceso de reconocimiento de un autómata, su lectura, la minimización y la determinación
+    de alguno de ellos.
+    He realizado esta practica con el lenguaje de programación \textit{python}, he creado cuatro clases las cuales me
+    ayudaran a desglosar los problemas que la practica requería.
     Me he basado mayormente en una programación orientada a la inmutabilidad y en la simplicidad de las funciones.
-    Las clases que he creado y que mas tarde explicare con mas detalle son : \textbf{dfa}(\textit{deterministic finit automaton}), \textbf{fa} (\textit{finit automaton}), \textbf{nfa}(\textit{non deterninistic finit automaton}) y por ultimo  \textbf{StateFa}.
+    Las clases que he creado y que más tarde explicare con más detalle son : \textbf{dfa}(\textit{deterministic finit
+    automaton}), \textbf{fa} (\textit{finit automaton}), \textbf{nfa}(\textit{non deterninistic finit automaton}) y por
+    último  \textbf{StateFa}.
     Estas definirán el comportamiento de nuestros autómatas.
-    Para la introducción de nuestros autómatas usaremos ficheros \textit{json}, por la facilidad que \textit{python} nos ofrece para su manejo.
+    Para la introducción de nuestros autómatas usaremos ficheros \textit{json}, por la facilidad que \textit{python}
+    nos ofrece para su manejo.
 
 
 
     \section{Interfaces para los autómatas}\label{sec:interfaces-para-los-autómatas}
-    Para dar un comportamiento homogéneo en todas las clases creo una interfaces común para todas las clases que antes había nombrado. Esto ayudara en la herencia de los métodos i poder reutilizar todos los métodos en la clase \textit{fa}.
+    Para dar un comportamiento homogéneo en todas las clases creo una interfaz común para todas las clases que antes
+    había nombrado.
+    Esto ayudara en la herencia de los métodos Y poder reutilizar todos los métodos en la clase \textit{fa}.
     \begin{itemize}
         \item \textbf{Dictionary}: Nos devolverá una tabla de \textit{hash} o diccionario del propio autómata
-        \item \textbf{Read}: Todos nuestros autómatas tienen que tener la capacidad de leer una palabra i devolver si el lenguaje usado es aceptado o encaso contrario decir que no lo es.
-        \item \textbf{Automaton}: devuelve un diccionario mas detallado sobre el autómata, es el valor de entrada de este.
+        \item \textbf{Read}: Todos nuestros autómatas tienen que tener la capacidad de leer una palabra y devolver si
+        el lenguaje usado es aceptado o encaso contrario decir que no lo es.
+        \item \textbf{Automaton}: devuelve un diccionario más detallado sobre el autómata, es el valor de entrada de este.
         \item \textbf{States}: Devuelve una lista de los estados que contiene.
         \item \textbf{Alphabet}: Alfabeto que acepta el autómata.
-        \item \textbf{DotDictionary}: creara un fichero dot que la libreria \textbf{Graphviz} transformara en una imagen de un grafo grafo.
+        \item \textbf{DotDictionary}: creara un fichero dot que la libreria \textbf{Graphviz} transformara en una imagen
+        de un grafo.
     \end{itemize}
 
 
     \section{Clase para los estados}\label{sec:clase-para-los-estados}
-    Cree esta clase para encapsular los valores de cada estado, es una clase anémica, solo nos provee de la información almacenada en sus instancias, por ello la única lógica que tiene es el retorno booleano en el caso que preguntemos si es un estado aceptador o un estado inicial.\\
-    Esta clase podría estar anidada en alguna de las clases creadas pero eso haría un código muy acoplado y dejaría poco margen para testear i poner mas comportamiento en esta clase, por ello pensé que desacoplar-la seria la mejor opción.
-    Algo que nos provee python es el tipado dinámico que ayuda en el momento que queremos almacenar las funciones de transición en los estados, ya que en un autómata determinista estará formado por un símbolo y en el caso de un no determinista estará formado por una lista.
+    Cree esta clase para encapsular los valores de cada estado, es una clase anémica, solo nos provee de la información
+    almacenada en sus instancias, por ello la única lógica que tiene es el retorno booleano en el caso que preguntemos
+    si es un estado aceptador o un estado inicial.\\
+    Esta clase podría estar anidada en alguna de las clases creadas pero eso haría un código muy acoplado, dejaría poco
+    margen para testear y poner más comportamiento en esta clase, por ello pensé que desacoplar-la seria la mejor opción.
+    Algo que nos provee python es el tipado dinámico que ayuda en el momento que queremos almacenar las funciones de
+    transición en los estados, ya que en un autómata determinista estará formado por un símbolo y en el caso de un no
+    determinista estará formado por una lista.
 
     \section{Automata Finito Determinista}\label{sec:automata-finito-determinista}
-    Esta clase dará comportamiento a los autómatas finitos deterministas. Para inicializarla crearemos una tabla de hash que es la estructura de datos en la que me apoyare, una lista de los estados que serán inicializados dentro de esta clase y los valores del alfabeto.
+    Esta clase dará comportamiento a los autómatas finitos deterministas.
+    Para inicializarla crearemos una tabla de hash que es la estructura de datos en la que me apoyare, una lista de los
+    estados que serán inicializados dentro de esta clase y los valores del alfabeto.
     Aparte de las funciones descritas en el apartado de la interfaz esta clase también tendrá la función de minimizar.
     \subsection{Leer}\label{subsec:leer2}
-    Para comenzar en esta función cojo el estado inicial y mediante \textit{tail recursion} voy cogiendo el primer elemento de la palabra y recorro los estados hasta que no tengo ningún elemento mas que leer, en ese momento devuelvo si el estado actual es un estado aceptador.
-    En el caso que no se un símbolo valido devolverá \textbf{VaueError}.
+    Para comenzar en esta función cojo el estado inicial y mediante \textit{tail recursion} voy cogiendo el primer
+    elemento de la palabra y recorro los estados hasta que no tengo ningún elemento más que leer, en ese momento
+    devuelvo si el estado actual es un estado aceptador.
+    En el caso que no sea un símbolo valido devolverá \textbf{VaueError}.
 
     \subsection{Minimizar}\label{subsec:minimizar}
     Este método se encargara de devolver un autómata finito determinista minimizado.
     Primero con conjuntos organizo los estados aceptadores y los que no lo son.
-    Mas tarde de forma recursiva con los conjuntos los encapsularemos en una lista y hasta que los conjuntos dentro de esta lista no paren de dividirse volveremos a ejecutar la función.
-    Para dividir los estados hacemos una función que determine si según las transiciones del estado continúan perteneciendo al mismo conjunto, para ahorrarnos eliminar los conjuntos vacíos creo un filtro. Para terminar usamos una función para adjudicar las funciones de transición a cada nuevo estado, esta función es la que ha requerido mas tiempo de toda mi implementación, para que esta sea consistente requiere que los símbolos que les identifiquen se puedan ordenar para trabajar con la lista que inicializamos al principio.
-    Por ultimo, como quería que mi código fuera inmutable, creo otra instancia de autómata  finito determinista con las nuevas propiedades.
+    Más tarde de forma recursiva con los conjuntos los encapsularemos en una lista y hasta que los conjuntos dentro de
+    esta lista no paren de dividirse volveremos a ejecutar la función.
+    Para dividir los estados hacemos una función que determine si según las transiciones del estado continúan
+    perteneciendo al mismo conjunto, para ahorrarnos eliminar los conjuntos vacíos creo un filtro.
+    Para terminar usamos una función para adjudicar las funciones de transición a cada nuevo estado, esta función es la
+    que ha requerido más tiempo de toda mi implementación, para que esta sea consistente requiere que los símbolos que
+    les identifiquen se puedan ordenar para trabajar con la lista que inicializamos al principio.
+    Por último, como quería que mi código fuera inmutable, creo otra instancia de autómata  finito determinista con las
+    nuevas propiedades.
 
     \section{Autómata Finito No Determinista}\label{sec:autómata-finito-no-determinista}
-    La clase para determinar el comportamiento del autómata no determinista es muy similar a la clase anterior pero esta se caracteriza por tener el método  \textit{determine} para hacer determinación.
+    La clase para determinar el comportamiento del autómata no determinista es muy similar a la clase anterior pero esta
+    se caracteriza por tener el método  \textit{determine} para hacer determinación.
 
     \subsection{Leer}\label{subsec:leer}
-    Este método es similar al método de la anterior clase pero con alguna variación para que en lugar de leer solo en una dirección lea todos los estados dentro de las funciones de transición. Como en la anterior también tiene una excepción si alguno de los símbolos leídos no es admitido.
+    Este método es similar al método de la anterior clase pero con alguna variación para que en lugar de leer solo en
+    una dirección lea todos los estados dentro de las funciones de transición.
+    Como en la anterior también tiene una excepción si alguno de los símbolos leídos no es admitido.
 
-    \subsection{Determinación del autómata}
-    Para comenzar agrupamos todos los estados iniciales en un solo estado y comenzamos una la construcción de una tabla, con una tabla de hash, cogeremos la llave de nuestra tabla i miraremos sus transiciones, con otra función miraremos si los estados nuevos ya están en la tabla si no es así lo añadiremos de forma recursiva y aplicando \textit{Dsf} vamos construyendo la tabla con los estados de nuestro autómata determinado. Cuando ya tenemos nuestra tabla completa i no queda ningún estado por añadir, transformamos el autómata y lo renombramos para que sea mas legible y para la parte final de esta función que transformara el autómata en una instancia nueva de un autómata finito determinista.
+    \subsection{Determinación del autómata}\label{subsec:determinación-del-autómata}
+    Para comenzar agrupamos todos los estados iniciales en un solo estado y comenzamos una la construcción de una tabla,
+    con una tabla de hash, cogeremos la llave de nuestra tabla y miraremos sus transiciones, con otra función miraremos
+    si los estados nuevos ya están en la tabla si no es así lo añadiremos de forma recursiva y aplicando \textit{Dsf}
+    vamos construyendo la tabla con los estados de nuestro autómata determinado.
+    Cuando ya tenemos nuestra tabla completa y no queda ningún estado por añadir, transformamos el autómata y lo
+    renombramos para que sea más legible y para la parte final de esta función que transformara el autómata en una
+    instancia nueva de un autómata finito determinista.
 
     \section{Autómata finito}\label{sec:autómata-finito}
-    Usando la composición inyectamos las clases que hemos realizado i estas se encargaran de implementar los métodos.
-    Al principio determinamos de que clase de autómata estamos tratando, después instanciamos la clase \textit{Dfa} o \textit{Nfa} según de cual se trate y los métodos heredaran de esta.
+    Usando la composición inyectamos las clases que hemos realizado y estas se encargaran de implementar los métodos.
+    Al principio determinamos de que clase de autómata estamos tratando, después instanciamos la clase \textit{Dfa} o
+    \textit{Nfa} según de cual se trate y los métodos heredaran de esta.
 
 
 

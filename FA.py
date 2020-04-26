@@ -18,3 +18,4 @@ if __name__ == "__main__":
         h = con.determine()
         print(h)
         print(con.read("ab"))
+        h.dot_dictionary("hola")

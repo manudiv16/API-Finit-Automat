@@ -80,19 +80,21 @@ class Dfa(InterfaceFa):
 
         char: str = word[0]
         if char not in self.__alphabet:
-            raise ValueError
+            raise ValueError  # introduction of non correct word
         next_state: int = self.__dictionary[state][char]
-        return self._read(word[1:], next_state)
+        return self._read(word[1:], next_state)  # recursive call (rest of word)
 
     def _final_or_not(self) -> Tuple[set, set]:
         finals_states = set(x for x in self.__states if x.is_final())
         non_final_states = finals_states ^ set(self.__states)
         finals_states = {x.state for x in finals_states}
         non_final_states = {x.state for x in non_final_states}
-        return finals_states, non_final_states
+        return finals_states, non_final_states  # final{4,5,6,7,8}, non_final{0,1,2,3}
 
     def _sets_start(self) -> StateFa:
-        return list(x for x in self.__states if x.is_start())[0]
+        for x in self.__states:
+            if x.is_start():
+                return x
 
     def _minimize(self, sets) -> list:
         category = []
@@ -164,7 +166,7 @@ class Dfa(InterfaceFa):
         return str(self.__repr__())
 
     def dot_dictionary(self, name: str) -> None:
-        dot = dict(initial_state=str(list(self._sets_start())[0]),
+        dot = dict(initial_state=str(self._sets_start()),
                    alphabet=self.__alphabet, states={str(x.state) for x in self.__states},
                    accepting_states={str(x.state) for x in self.__states if x.is_final()},
                    transitions={(str(x.state), i): x.morphs[i]
