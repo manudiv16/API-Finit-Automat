@@ -63,21 +63,30 @@ class Nfa(InterfaceFa):
         return False
 
     def determine(self) -> Dfa:
+        """
+        Transform a non-deterministic automata to a deterministic
+        :return: new Dfa
+        """
         start = tuple(map(lambda x: x.state, self._start_state()))
         determined = self._determine(start)
         return self._to_dfa(determined)
 
     def _determine(self, key: Tuple, table=None) -> Dict:
+        """
+        Create table
+        :param key:
+        :param table:
+        :return:
+        """
         if table is None:
             table = {}
         if self._is_none_next_key(key):
             return table
-        table[key] = self._morphs_key(key)  # set directed to morphism
-        next_key = self._next_key_in_table(key, table)
-        table = self._determine(next_key, table)  # recursive call
-
-        next_key = self._next_key_in_table(key, table)
-        return self._determine(next_key, table)
+        table[key] = self._morphs_key(key)
+        for next_key in self._next_key_in_table(key, table):
+            if next_key not in table:
+                table = self._determine(next_key, table)
+        return table
 
     def _morphs_key(self, key: tuple) -> dict:
         dictionary_morphs: Dict[Any, Tuple[Any, ...]] = {}
@@ -145,8 +154,8 @@ class Nfa(InterfaceFa):
     def _next_key(table: Dict, args: tuple) -> Union[None, Tuple]:
         for value in args:
             if value not in table:
-                return value
-        return None
+                yield value
+        yield None
 
     def _next_key_in_table(self, start, table):
         return self._next_key(table, self._get_values(start, table))

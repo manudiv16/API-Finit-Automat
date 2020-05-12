@@ -1,11 +1,11 @@
 import unittest
 
-from AF import Dfa
+from AF.dfa import Dfa
 import json
 
 
 def read_automaton():
-    with open("json/dfa.json", "r") as f:
+    with open("../json/dfa.json", "r") as f:
         return json.load(f)
 
 
