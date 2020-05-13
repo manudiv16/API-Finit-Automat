@@ -166,6 +166,10 @@ class Dfa(InterfaceFa):
         return str(self.__repr__())
 
     def dot_dictionary(self, name: str) -> None:
+        """
+        Generate svg for automaton
+        :param name of svg file:
+        """
         dot = dict(initial_state=str(self._sets_start()),
                    alphabet=self.__alphabet, states={str(x.state) for x in self.__states},
                    accepting_states={str(x.state) for x in self.__states if x.is_final()},
