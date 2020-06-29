@@ -1,7 +1,7 @@
 import json
 
-from AF.nfa import Nfa
-from AF.dfa import Dfa
+from nfa import Nfa
+from dfa import Dfa
 
 if __name__ == "__main__":
     with open("json/dfa.json", "r") as f:
@@ -18,4 +18,5 @@ if __name__ == "__main__":
         h = con.determine()
         print(h)
         print(con.read("ab"))
-        h.dot_dictionary("hola")
+        a = h.dot_dictionary("hola")
+        print(a)

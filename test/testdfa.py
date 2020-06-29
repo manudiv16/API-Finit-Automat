@@ -1,6 +1,6 @@
 import unittest
 
-from AF.dfa import Dfa
+from dfa import Dfa
 import json
 
 

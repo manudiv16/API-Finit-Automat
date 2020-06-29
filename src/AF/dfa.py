@@ -4,9 +4,9 @@ from __future__ import annotations
 from typing import Tuple, List, Union, Dict
 
 from PySimpleAutomata import automata_IO
-
-from AF.StateFa import StateFa
-from AF.fa_interface import InterfaceFa
+from os import path
+from StateFa import StateFa
+from src.AF.fa_interface import InterfaceFa
 
 
 class Dfa(InterfaceFa):
@@ -165,9 +165,10 @@ class Dfa(InterfaceFa):
     def __str__(self) -> str:
         return str(self.__repr__())
 
-    def dot_dictionary(self, name: str) -> None:
+    def dot_dictionary(self, name: str) -> str:
         """
         Generate svg for automaton
+        :param name:
         :param name of svg file:
         """
         dot = dict(initial_state=str(self._sets_start()),
@@ -176,3 +177,6 @@ class Dfa(InterfaceFa):
                    transitions={(str(x.state), i): x.morphs[i]
                                 for x in self.__states for i in self.alphabet})
         automata_IO.dfa_to_dot(dot, name, ".")
+        while True:
+            if path.exists(f"{name}.dot.svg"):
+                return f"./{name}.dot.svg"
