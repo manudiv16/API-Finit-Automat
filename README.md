@@ -23,11 +23,10 @@ codefactor-badge: True
 
 <!-- start description -->
 # Welcome to Finit Automat
-<img align="right" height="128" id="icon" src="doc/Thompson-kleene-star.svg" width="128"/>
+<img id="icon" width="128" height="128" align="right" src="doc/icon.png"/>
 Flask tool that manages the behavior of a finite automata.
 Generate photos of the automata through calls to the api 
 with a json that describes the automata
-
 
 <!-- end description -->
 
@@ -37,8 +36,7 @@ with a json that describes the automata
 pip install -r requirements.txt
 
 install Graphviz
-&gt; https://graphviz.org/download/
-
+> https://graphviz.org/download/
 
 <!-- end prerequisites -->
 
@@ -81,7 +79,6 @@ Json describes finit automaton
   }
 ```
 
-
 <!-- end using -->
 
 <!-- start contributing -->
@@ -90,7 +87,7 @@ Json describes finit automaton
 <!-- end contributing -->
 
 <!-- start contributors -->
-## Contributors
+
 
 <!-- end contributors -->
 
