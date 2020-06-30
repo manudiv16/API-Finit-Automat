@@ -92,7 +92,7 @@ Json describes finit automaton
 <!-- end contributors -->
 
 <!-- start table-contributors -->
-
+## contributors 
 <table id="contributors">
 	<tr id="info_avatar">
 		<td id="manudiv16" align="center">
