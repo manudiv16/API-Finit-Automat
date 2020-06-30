@@ -5,8 +5,8 @@ from typing import Tuple, List, Union, Dict
 
 from PySimpleAutomata import automata_IO
 from os import path
-from StateFa import StateFa
-from src.AF.fa_interface import InterfaceFa
+from AF.StateFa import StateFa
+from AF.fa_interface import InterfaceFa
 
 
 class Dfa(InterfaceFa):
@@ -176,7 +176,7 @@ class Dfa(InterfaceFa):
                    accepting_states={str(x.state) for x in self.__states if x.is_final()},
                    transitions={(str(x.state), i): x.morphs[i]
                                 for x in self.__states for i in self.alphabet})
-        automata_IO.dfa_to_dot(dot, name, ".")
+        automata_IO.dfa_to_dot(dot, name, "../AF")
         while True:
             if path.exists(f"{name}.dot.svg"):
                 return f"./{name}.dot.svg"

@@ -1,8 +1,8 @@
 from typing import Dict, Any, Tuple, List, Union, Generator
 
-from StateFa import StateFa
-from dfa import Dfa
-from src.AF.fa_interface import InterfaceFa
+from AF.StateFa import StateFa
+from AF.dfa import Dfa
+from AF.fa_interface import InterfaceFa
 
 
 class Nfa(InterfaceFa):

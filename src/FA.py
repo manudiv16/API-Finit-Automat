@@ -1,7 +1,7 @@
 import json
 
-from nfa import Nfa
-from dfa import Dfa
+from AF.nfa import Nfa
+from AF.dfa import Dfa
 
 if __name__ == "__main__":
     with open("json/dfa.json", "r") as f:
