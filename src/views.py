@@ -1,8 +1,7 @@
 import os
 
-from flask import Flask, request, send_file, after_this_request
-
-from AF.dfa import Dfa
+from flask import request, send_file, after_this_request, Flask
+from mypackage.dfa import Dfa
 
 app = Flask(__name__)
 
@@ -23,7 +22,7 @@ def afn():
     def remove_file(response):
         try:
             os.remove(filename)
-            os.remove(f"{name_file}.dot")
+            os.remove(f"../AF/{name_file}.dot")
             return response
         except Exception as error:
             app.logger.error("error removing file", error)
@@ -35,4 +34,4 @@ def afn():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0')

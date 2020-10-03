@@ -1,2 +1,4 @@
 PySimpleAutomata~=0.5.0
 Flask~=1.1.2
+Finit-Automaton
+gunicorn
