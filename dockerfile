@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-MAINTAINER manudiv1
+
 COPY src/ .
 COPY requirements.txt .
 ENV TZ=Europe/Madrid

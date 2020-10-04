@@ -1,11 +1,11 @@
 
 <!-- start project-info -->
 <!--
-project_title: Finit Automat
-github_project: https://github.com/manudiv16/Finit_Automat
+project_title: API Finit Automaton
+github_project: https://github.com/manudiv16/API-Finit-Automaton
 license: MIT
 icon: /home/manu/PycharmProjects/Finit_Automat/doc/Thompson-kleene-star.svg
-homepage: https://github.com/manudiv16/Finit_Automat
+homepage: https://github.com/manudiv16/API-Finit-Automaton
 license-badge: False
 contributors-badge: True
 lastcommit-badge: True
@@ -16,9 +16,9 @@ codefactor-badge: True
 
 <!-- start badges -->
 
-![Contributors](https://img.shields.io/github/contributors-anon/manudiv16/Finit_Automat)
-![Last commit](https://img.shields.io/github/last-commit/manudiv16/Finit_Automat)
-[![CodeFactor](https://www.codefactor.io/repository/github/manudiv16/Finit_Automat/badge/master)](https://www.codefactor.io/repository/github/manudiv16/Finit_Automat/overview/master)
+![Contributors](https://img.shields.io/github/contributors-anon/manudiv16/API-Finit-Automaton)
+![Last commit](https://img.shields.io/github/last-commit/manudiv16/API-Finit-Automaton)
+![CodeFactor](https://www.codefactor.io/repository/github/manudiv16/api-finit-automaton/badge)
 <!-- end badges -->
 
 <!-- start description -->
